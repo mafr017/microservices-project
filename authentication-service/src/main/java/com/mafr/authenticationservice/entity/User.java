@@ -18,20 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Long id;
-    @Column(unique = true, nullable = false)
-    private String username;
 
     @Column(nullable = false)
-    private String email;
+    private String phone;
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String role;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

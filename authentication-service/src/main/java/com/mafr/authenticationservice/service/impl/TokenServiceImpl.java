@@ -1,5 +1,6 @@
 package com.mafr.authenticationservice.service.impl;
 
+import com.mafr.authenticationservice.dto.LoginDTO;
 import com.mafr.authenticationservice.dto.UserDTO;
 import com.mafr.authenticationservice.entity.User;
 import com.mafr.authenticationservice.exception.InvalidPasswordException;
@@ -49,15 +50,15 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public UserDTO decodeToken(String token) {
+    public LoginDTO decodeToken(String token) {
         String newToken = token.split(" ")[1];
         Jwt jwtToken = jwtDecoder.decode(newToken);
         String data = jwtToken.getSubject();
-        Optional<User> user = userRepository.findByUsername(data);
+        Optional<User> user = userRepository.findByPhone(data);
         if (user.isPresent()) {
-            return modelMapper.map(user.get(), UserDTO.class);
+            return modelMapper.map(user.get(), LoginDTO.class);
         }
-        throw new UserNotFoundException("user not found");
+        throw new UserNotFoundException("User not found");
     }
 
     @Override
@@ -66,7 +67,6 @@ public class TokenServiceImpl implements TokenService {
         User user = modelMapper.map(userDTO, User.class);
         if (!PasswordValidator.isValid(user.getPassword())) {
             throw new InvalidPasswordException("error");
-
         }
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);

@@ -24,7 +24,7 @@ public class UserSecurity implements UserDetails {
     }
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getPhone();
     }
     @Override
     public boolean isAccountNonExpired() {

@@ -7,8 +7,6 @@ import lombok.*;
 @Data
 @Builder
 @ToString
-public class UserDTO {
-    private Integer id;
+public class LoginDTO {
     private String phone;
-    private String password;
 }

@@ -23,8 +23,8 @@ public class JpaUserDetailService implements UserDetailsService {
     private final ModelMapper modelMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByPhone(phone);
         if(user.isPresent()) {
             return new UserSecurity(user.get());
         }
